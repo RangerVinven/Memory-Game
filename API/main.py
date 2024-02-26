@@ -1,3 +1,6 @@
+# TO RUN FILE:
+# uvicorn main:app --reload
+
 from fastapi import FastAPI
 from routes.scores import app as scores_router
 
