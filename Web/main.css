@@ -5,15 +5,16 @@ body{
 nav{
     text-align: center;
     border: 2px solid;
+    background-color: white;
 }
 
 nav ul li{
     display: inline;
-    border: 1px solid;
     margin: 5px;
     background-color: white;
     font-size: 32px;
-    
+    padding-left: 8%;
+    padding-right: 8%;
 
 
 }
