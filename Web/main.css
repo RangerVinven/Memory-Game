@@ -1,5 +1,5 @@
 body{
-    background-color: #64B6AC;
+    background-color: #0ca789;
 }
 
 nav{
@@ -16,5 +16,8 @@ nav ul li{
     padding-left: 8%;
     padding-right: 8%;
 
+}
 
+.playBoard{
+    background-color: #35654d;
 }
