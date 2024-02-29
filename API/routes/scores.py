@@ -36,6 +36,10 @@ def createScore(score: CreateScore):
     # TODO:
     # Add a function that finds the userID from the session token
 
+    # Ensures difficulty is either Easy, Medium or Hard
+    if score.difficulty not in ["Easy", "Medium", "Hard"]:
+        return HTTPException(status_code=400, detail="Difficulty must be Easy, Medium or Hard")
+
     # Adds the scores
     cursor.execute("INSERT INTO Scores (score, difficulty, userID) VALUES (%s, %s, %s);", (score.score, score.difficulty, 1234))
     db.commit()
