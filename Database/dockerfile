@@ -6,6 +6,4 @@ ENV MYSQ_DATABASE=IC_Moves
 
 COPY ./schema.sql /docker-entrypoint-initdb.d/
 
-EXPOSE 3306
-
 CMD [ "mysqld" ]
