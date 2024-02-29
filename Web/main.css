@@ -1,0 +1,19 @@
+body{
+    background-color: #64B6AC;
+}
+
+nav{
+    text-align: center;
+    border: 2px solid;
+}
+
+nav ul li{
+    display: inline;
+    border: 1px solid;
+    margin: 5px;
+    background-color: white;
+    font-size: 32px;
+    
+
+
+}
