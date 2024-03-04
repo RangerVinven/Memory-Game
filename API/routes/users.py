@@ -6,7 +6,14 @@ app = APIRouter()
 
 @app.get("")
 
+
 #TODO create the user
+@app.
+
 #TODO user login
+
+
 #TODO user deletion
+@app.delete("")
+
 #TODO edit user details
