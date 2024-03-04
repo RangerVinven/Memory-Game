@@ -12,4 +12,4 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(scores_router, prefix="/scores")
-app.include_router(user_router, prefix="/users")
+app.include_router(users_router, prefix="/users")
