@@ -23,8 +23,12 @@ class LoginUser(BaseModel):
     password: str
 
 class UpdateUser(BaseModel):
-    username: Optional[str]=None
-    firstname: Optional[str]=None
-    lastname: Optional[str]=None
-    email: Optional[str]=None
-    password: Optional[str]=None
+    username: str
+    firstname: str
+    lastname: str
+    email: str
+    password: str
+    session_token: str
+
+class SessionTokenUser(BaseModel):
+    session_token: str
