@@ -27,3 +27,24 @@ nav ul li{
     width: 1200px;
     margin: 50px auto;
 }
+
+.form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.form input{
+border-radius: 10px;
+border-color: black;
+
+}

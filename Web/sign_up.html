@@ -1,31 +1,64 @@
 <html>
 
-    <head>
-        <link rel = "stylesheet" type = "text/css" href = "main.css">
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
 
-    <body>
+<body>
 
-        <header>
+    <header>
 
-        </header>
+    </header>
 
-        <nav>
-            <ul>
-                <li> <a href = "main.html">Play</a> </li>
-                <li> <a href = "leaderboard.html">Leaderboard</a></li>
-                <li> <img src = "playing-cards.png" width = 50px height = 50px></li>
-                <li> <a href = "sign_up.html">Sign Up</a></li>
-                <li> <a href = "log_in.html">Log In</a></li>
-            </ul>
-        </nav>
+    <nav>
+        <ul>
+            <li> <a href="main.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a href="sign_up.html">Sign Up</a></li>
+            <li> <a href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
 
-        <main>
+    <main>
+        <script>
+            function createUser() {
+                const username = document.getElementById("Username").innerText;
+                const emailAddress = document.getElementById("emailAddress").innerText;
+                const firstName = document.getElementById("firstName").innerText;
+                const lastName = document.getElementById("lastName").innerText;
+                const password = document.getElementById("Password").innerText;
 
-        </main>
-        
+                fetch("http://localhost:8000/create", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: {
+                        "Username": username,
+                        "emailAddress": emailAddress,
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "password": password
 
-    </body>
+                    }
+                })
+            }
+        </script>
+        <form action="">
+            <div class="form">
+                <input id="Username" type="text" placeholder="Username" />
+                <input id="emailAddress" type="text" placeholder="Email Address" />
+                <input id="firstName" type="text" placeholder="First Name" />
+                <input id="lastName" type="text" placeholder="Last Name" />
+                <input id="Password" type="password" placeholder="Password" />
+                <button type="button" onclick="createUser()">Sign-Up</button>
+            </div>
+        </form>
+    </main>
+
+
+</body>
 
 
 </html>
