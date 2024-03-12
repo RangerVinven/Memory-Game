@@ -6,9 +6,17 @@ from utils.database_connector import db, cursor
 
 app = APIRouter()
 
-# TODO:
-# [ ] - Add function to get the userID from the session token
-# [ ] - Add function that gets the username from the userID 
+# Gets the userID for a user given the session token
+def getUserIDFromSessionToken(sessionToken: str):
+    # Gets all IDs with a matchin session token
+    cursor.execute("SELECT userID FROM Users WHERE session_token=%s", (sessionToken,))
+    ids = cursor.fetchall()
+
+    # If no userID exists with that session token
+    if len(ids) == 0:
+        return ""
+    
+    return ids[0]["userID"]
 
 # Lists all the scores in the database
 @app.get("/all")
@@ -33,15 +41,18 @@ def getHighScores(difficulty: str = "Easy"):
 # Creates a score
 @app.post("/")
 def createScore(score: CreateScore):
-    # TODO:
-    # Add a function that finds the userID from the session token
+    userID = getUserIDFromSessionToken(score.sessionToken)
+
+    # Ensures the user has a valid session token
+    if userID == "":
+        return HTTPException(status_code=401, detail="Invalid session token")
 
     # Ensures difficulty is either Easy, Medium or Hard
     if score.difficulty not in ["Easy", "Medium", "Hard"]:
         return HTTPException(status_code=400, detail="Difficulty must be Easy, Medium or Hard")
 
     # Adds the scores
-    cursor.execute("INSERT INTO Scores (score, difficulty, userID) VALUES (%s, %s, %s);", (score.score, score.difficulty, score.sessionToken))
+    cursor.execute("INSERT INTO Scores (score, difficulty, userID) VALUES (%s, %s, %s);", (score.score, score.difficulty, userID))
     db.commit()
 
 # Returns the data for a specifc score, given the scoreID
