@@ -19,7 +19,7 @@ class CreateUser(BaseModel):
 
 
 class LoginUser(BaseModel):
-    username: str
+    email: str
     password: str
 
 class UpdateUser(BaseModel):

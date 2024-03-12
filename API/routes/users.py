@@ -49,7 +49,7 @@ def hashPass(textToHash):
 @app.post("/login")
 
 def login(user:LoginUser,response:Response):
-    cursor.execute("SELECT username,firstname,lastname,email,password from Users WHERE username =%s AND password =%s",(user.username,hashPass(user.password)))
+    cursor.execute("SELECT username,firstname,lastname,email,password from Users WHERE email=%s AND password =%s",(user.email,hashPass(user.password)))
     results=cursor.fetchall()
     if len(results) == 0:
         response.status_code = status.HTTP_401_UNAUTHORIZED
