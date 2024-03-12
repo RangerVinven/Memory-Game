@@ -11,3 +11,6 @@ class CreateScore(BaseModel):
     score: int
     difficulty: str
     sessionToken: str
+
+class SessionTokenScore(BaseModel):
+    sessionToken: str
