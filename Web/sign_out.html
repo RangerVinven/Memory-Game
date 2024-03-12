@@ -1,18 +1,13 @@
 <html>
-    <body>
-        
-    
+
     <script>
-
         function logout(){
-        console.log("test")
-        localStorage.setItem("sessionToken","")
-        document.window.location.assign("http://127.0.0.1:5500/Web/main.html")
+            console.log("test")
+            localStorage.setItem("sessionToken","")
+            document.window.location.assign("http://127.0.0.1:5500/Web/main.html")
         }
-        
-        </script>
-<div onload="logout()">
+    </script>
 
-</div>
-</body>
+    <body onload="logout()"></body>
+
 </html>
