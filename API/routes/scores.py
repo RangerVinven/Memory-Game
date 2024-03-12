@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Request, status, HTTPException
+from fastapi import APIRouter, Response, status, HTTPException
 
 from models.scores import CreateScore, SessionTokenScore
 
