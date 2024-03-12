@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, Request, status, HTTPException
 
-from models.scores import CreateScore
+from models.scores import CreateScore, SessionTokenScore
 
 from utils.database_connector import db, cursor
 
@@ -25,15 +25,32 @@ def listScores():
     return cursor.fetchall()
 
 # Gets the highscores for either the Easy, Medium or Hard scores
+# If the user passes in their session token, it shows just their scores
+# If not, then it gets the scores from all the users
 @app.get("/highscores")
-def getHighScores(difficulty: str = "Easy"):
+def getHighScores(sessionToken: SessionTokenScore | None = None, difficulty: str = "Easy"):
 
     # Ensures difficulty is either Easy, Medium or Hard
     if difficulty not in ["Easy", "Medium", "Hard"]:
         return HTTPException(status_code=400, detail="Difficulty must be Easy, Medium or Hard")
 
+    # Defines the query so far
+    query = "SELECT score, userID FROM Scores WHERE difficulty=%s "
+    variables = [difficulty]
+
+    # If the user is wants to see their personal scores
+    if sessionToken:
+        userID = getUserIDFromSessionToken(sessionToken.sessionToken)
+
+        # Returns an error 400 if the user enters an invalid session token
+        if userID == "":
+            return HTTPException(status_code=400, detail="Invalid session token")
+        
+        query += "AND userID=%s"
+        variables.append(userID)
+
     # Gets and returns the userID
-    cursor.execute("SELECT score, userID FROM Scores WHERE difficulty=%s ORDER BY score asc LIMIT 10;", (difficulty,))
+    cursor.execute(query + " ORDER BY score asc LIMIT 10;", tuple(variables))
 
     # TODO: Change userID to the username
     return cursor.fetchall()
