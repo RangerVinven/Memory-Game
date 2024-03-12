@@ -23,35 +23,35 @@
     <main>
         <script>
             function createUser() {
-                const username = document.getElementById("Username").innerText;
-                const emailAddress = document.getElementById("emailAddress").innerText;
-                const firstName = document.getElementById("firstName").innerText;
-                const lastName = document.getElementById("lastName").innerText;
-                const password = document.getElementById("Password").innerText;
+                const username = document.getElementById("username").value;
+                const emailAddress = document.getElementById("email").value;
+                const firstName = document.getElementById("firstname").value;
+                const lastName = document.getElementById("lastname").value;
+                const password = document.getElementById("password").value;
 
-                fetch("http://localhost:8000/create", {
+                fetch("http://localhost:8000/users/create", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: {
-                        "Username": username,
-                        "emailAddress": emailAddress,
-                        "firstName": firstName,
-                        "lastName": lastName,
+                    body: JSON.stringify({
+                        "username": username,
+                        "email": emailAddress,
+                        "firstname": firstName,
+                        "lastname": lastName,
                         "password": password
 
-                    }
+                    })
                 })
             }
         </script>
         <form action="">
             <div class="form">
-                <input id="Username" type="text" placeholder="Username" />
-                <input id="emailAddress" type="text" placeholder="Email Address" />
-                <input id="firstName" type="text" placeholder="First Name" />
-                <input id="lastName" type="text" placeholder="Last Name" />
-                <input id="Password" type="password" placeholder="Password" />
+                <input id="username" type="text" placeholder="Username" />
+                <input id="email" type="text" placeholder="Email Address" />
+                <input id="firstname" type="text" placeholder="First Name" />
+                <input id="lastname" type="text" placeholder="Last Name" />
+                <input id="password" type="password" placeholder="Password" />
                 <button type="button" onclick="createUser()">Sign-Up</button>
             </div>
         </form>

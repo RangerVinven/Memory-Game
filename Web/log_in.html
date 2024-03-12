@@ -40,33 +40,50 @@
             <li> <a href="main.html">Play</a> </li>
             <li> <a href="leaderboard.html">Leaderboard</a></li>
             <li> <img src="playing-cards.png" width=50px height=50px></li>
-            <li> <a href="sign_up.html">Sign Up</a></li>
-            <li> <a href="log_in.html">Log In</a></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
         </ul>
     </nav>
 
     <main>
         <script>
-            function loginUser() {
-                const emailAddress = document.getElementById("emailAddress").innerText;
-                const password = document.getElementById("Password").innerText;
+            function changeNavBar(){
+            console.log("asdasdaqwe")
+            const sign_up = document.getElementById("sign_up");
+            sign_up.innerText="My Account"
+            sign_up.href="account.html"
 
-                fetch("http://localhost:8000/login", {
+            const login = document.getElementById("login");
+            login.innerText="Log Out"
+            login.href="sign_out.html"
+        }
+
+
+            async function loginUser() {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+                
+                const res = await fetch("http://localhost:8000/users/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: {
-                        "emailAddress": emailAddress,
+                    body: JSON.stringify({
+                        "email": email,
                         "password": password
-                    }
+                    })
                 })
+                const data = await res.json()
+                const sessionToken = data.session_token
+                localStorage.setItem("sessionToken",sessionToken)
+            changeNavBar()
+
             }
         </script>
         <form action="">
             <div class="form">
-                <input id="emailAddress" type="email" placeholder="Email Address" />
-                <input id="Password" type="password" placeholder="Password" />
+                <input id="email" type="email" placeholder="Email Address" />
+                <input id="password" type="password" placeholder="Password" />
                 <button type="button" onclick="loginUser()">Log In</button>
             </div>
         </form>
