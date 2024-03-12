@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, status, HTTPException
+from fastapi import APIRouter, Response, Request, status, HTTPException
 
 from models.scores import CreateScore
 
@@ -41,7 +41,7 @@ def createScore(score: CreateScore):
         return HTTPException(status_code=400, detail="Difficulty must be Easy, Medium or Hard")
 
     # Adds the scores
-    cursor.execute("INSERT INTO Scores (score, difficulty, userID) VALUES (%s, %s, %s);", (score.score, score.difficulty, 1234))
+    cursor.execute("INSERT INTO Scores (score, difficulty, userID) VALUES (%s, %s, %s);", (score.score, score.difficulty, score.sessionToken))
     db.commit()
 
 # Returns the data for a specifc score, given the scoreID
