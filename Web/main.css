@@ -48,3 +48,10 @@ border-radius: 10px;
 border-color: black;
 
 }
+.account_details{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
