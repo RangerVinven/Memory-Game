@@ -20,10 +20,41 @@
             </ul>
         </nav>
 
+
         <main>
             
             <section class = playboard>
-    
+                
+                <div id="Game-Container">
+                    <div id="Difficulties">
+                        <select name="difficulties" id="difficulties">
+                            <option value="Practice">Practice</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                        
+                    </div>
+                    
+                    <div id="Play-Area">
+                        <div id="Timer">
+                            <!-- Timer -->
+                            00:00:00
+                        </div>
+
+                        <!-- Cards -->
+                        <div id="Cards">
+
+                        </div>
+                    </div>
+
+                    <!-- Scores and the Level -->
+                    <div id="Scores-And-Level">
+                        <h3 id="Score">Score: 0</h3>
+                        <h3 id="Level">Level: 1</h3>
+                    </div>
+                </div>
+
             </section>
 
         </main>
@@ -32,4 +63,6 @@
     </body>
 
 <script src="checkIfLoggedIn.js"></script>
+
+<script src="game.js"></script>
 </html>

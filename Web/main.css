@@ -55,3 +55,51 @@ border-color: black;
     align-content: center;
     align-items: center;
 }
+
+#Game-Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+}
+
+#Difficulties {
+    width: 35%;
+}
+
+#Difficulties > select {
+    width: fit-content
+}
+
+#Play-Area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#Timer {
+    margin-bottom: 20px;
+}
+
+#Cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 20px;    
+}
+
+.Playing-Card {
+    height: auto;
+    width: 100px;
+}
+
+#Scores-And-Level {
+    display: flex;
+    justify-content: end;
+    width: 35%;
+}
