@@ -235,10 +235,16 @@ function getCurrentLevel() {
 }
 
 function increaseLevel() {
-    // Increases the level
+    // Gets the current and new level
     const currentLevel = getCurrentLevel();
     const newLevel = currentLevel + 1;
     
+    // Increases the level
+    getLevelElement().innerText = "Level: " + newLevel;
+
+    // Adds 100 points for completing the level
+    addToScore(100)
+
     // Deletes all the cards
     document.getElementById("Cards").textContent = "";
 
