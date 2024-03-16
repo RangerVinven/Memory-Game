@@ -23,9 +23,14 @@ nav ul li{
 .playBoard{
     background-color: #35654d;
     border: 1px solid black;
-    height: 600px;
+    min-height: 600px;
     width: 1200px;
     margin: 50px auto;
+    padding-bottom: 10px;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .form{
@@ -65,23 +70,39 @@ border-color: black;
 }
 
 #Difficulties {
-    width: 35%;
+    position: absolute;
+    
+    margin-top: 5px;
+    margin-left: 5px;
+    
+    top: 0;
+    left: 0;
 }
 
 #Difficulties > select {
-    width: fit-content
+    width: fit-content;
+    height: fit-content;
+
+    font-size: 20px;
 }
 
 #Play-Area {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 75%;
+
+    margin-top: 10px;
 }
 
 #Timer {
-    margin-bottom: 20px;
+    margin: 0px 0px 20px 0px;
+    color: white;
+    
+    font-size: 25px;
+    font-weight: normal;
+
+    font-family: Arial;
 }
 
 #Cards {
@@ -98,8 +119,25 @@ border-color: black;
     width: 100px;
 }
 
-#Scores-And-Level {
-    display: flex;
-    justify-content: end;
-    width: 35%;
+#Score, #Level {
+    color: white;
+    margin-right: 10px;
+    
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: normal;
+
 }
+
+#Score {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#Level {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
