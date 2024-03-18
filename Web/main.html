@@ -26,7 +26,7 @@
             <section class="playboard">
 
                 <div id="Difficulties">
-                    <select name="difficulties" id="difficulties">
+                    <select name="difficulties" id="Difficulties-Select">
                         <option value="Practice">Practice</option>
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
@@ -47,17 +47,21 @@
                 <h3 id="Score">Score: 0</h3>
                 <h3 id="Level">Level: 1</h3>
 
+                <div id="Start-Game">
+                    <button onclick="startGame(1)">Start Game?</button>
+                </div>
+
                 <div id="End-Of-Game-Popup">
                     <h1>Time's Up!</h1>
 
                     <div id="Points-Div">
-                        <h2>You scored 9000 points</h2>
+                        <h2 id="End-Of-Game-Popup-Points-Header">You scored 9000 points</h2>
                     </div>
 
                     <div id="Buttons">
                         <h3>Start A New Game?</h3>
-                        <button id="No-Btn" class="New-Game-Btn">No</button>
-                        <button id="Yes-Btn" class="New-Game-Btn">Yes</button>
+                        <button id="No-Btn" class="New-Game-Btn" onclick="redirectToLeaderboard()">No</button>
+                        <button id="Yes-Btn" class="New-Game-Btn" onclick="reloadPage()">Yes</button>
                     </div>
                 </div>
 
