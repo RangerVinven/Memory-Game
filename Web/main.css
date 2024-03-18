@@ -141,3 +141,50 @@ border-color: black;
     bottom: 0;
 }
 
+#End-Of-Game-Popup {
+    visibility: hidden;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: green;
+    height: 400px;
+    width: 700px;
+
+    text-align: center;
+}
+
+#End-Of-Game-Popup > h1, h2, h3 {
+    margin: 15px 0px 0px 0px;
+    color: white;
+    
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#End-Of-Game-Popup h1 {
+    font-size: 40px;
+}
+
+#Points-Div {
+    height: 50%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.New-Game-Btn {
+    width: 50px;
+    font-size: 17px;
+
+    margin-top: 10px;
+}
+
+#Yes-Btn {
+    margin-left: 15px;
+}
