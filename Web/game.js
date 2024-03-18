@@ -238,7 +238,6 @@ function increaseLevel() {
 
     // Gets the seconds left and seconds started with
     const secondsLeft = getSecondsLeft();
-    const secondsStartedWith = Number(getTimerElement().getAttribute("SecondsStartedWith"))
 
     // Increases the level
     getLevelElement().innerText = "Level: " + newLevel;
@@ -251,15 +250,59 @@ function increaseLevel() {
     document.getElementById("Cards").textContent = "";
 
     // Starts a new game
-    startGame(10 + (newLevel*2), secondsLeft)
+    startGame(newLevel)
 }
 
 function endGame() {
-    
+    // Stops the user from clicking any new cards
+    const cards = document.getElementById("Cards").children;
+    for(const card of cards) {
+        card.onclick = () => {}
+    }
+
+    document.getElementById("End-Of-Game-Popup-Points-Header").innerText = "You scored " + getCurrentScore().toString() + " points!";
+    document.getElementById("End-Of-Game-Popup").style.visibility = "visible";
+}
+
+function redirectToLeaderboard() {
+    window.location.assign("http://127.0.0.1:5500/Web/leaderboard.html");
+}
+
+function reloadPage() {
+    window.location.reload();
 }
 
 // Gets the cards to display to the user
-function startGame(numberOfCardsToDisplay, secondsToStartWith) {
+function startGame(level) {
+    // Stops the user from changing the difficulty mid-game
+    document.getElementById("Difficulties-Select").disabled = true;
+
+    // Hides the Start Game button and shows the cards div
+    document.getElementById("Start-Game").style.visibility = "hidden";
+    document.getElementById("Cards").style.visibility = "visible";
+
+    // Defines the number of cards to start with, and the amount of time the user gets
+    let numberOfCardsToDisplay = 0;
+    let secondsToStartWith = 0;
+
+    // Gets the difficulty
+    const difficulty = document.getElementById("Difficulties-Select").value
+
+    // Sets the number of cards to display and the seconds to display on the timer
+    if(difficulty === "Practice") {
+        numberOfCardsToDisplay = 4 + (level * 2);
+        secondsToStartWith = 5999;
+    } else if (difficulty === "Easy") {
+        numberOfCardsToDisplay = 10 + (level * 2);
+        secondsToStartWith = (getSecondsLeft() === 0 && level === 1) ? 240 : getSecondsLeft();
+    } else if (difficulty === "Medium") {
+        numberOfCardsToDisplay = 24 + (level * 2);
+        secondsToStartWith = (getSecondsLeft() === 0 && level === 1) ? 180 : getSecondsLeft();
+    } else {
+        numberOfCardsToDisplay = 50 + (level * 2);
+        secondsToStartWith = (getSecondsLeft() === 0 && level === 1) ? 150 : getSecondsLeft();
+    }
+
     // All the possible cards
     const allPossibleCards = [
         { cardName: "Ace of Spades", cardImg: "img/AS.png", isFlipped: false, hasBeenFlipped: false },
@@ -414,6 +457,3 @@ function getSecondsLeft() {
 
     return seconds;
 }
-
-// Starts the game
-startGame(12, 100);
