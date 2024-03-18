@@ -189,17 +189,14 @@ function checkForPair() {
 
         // Checks if the card has been flipped before. If not, adds an extra 20 to the points
         if(flippedCards[0].getAttribute("HasBeenFlipped") === "false" && flippedCards[1].getAttribute("HasBeenFlipped") === "false") {
-            
-            scoreToAdd += 20;
-        } else {
-            
+            scoreToAdd += 20;  
         }
 
         addToScore(scoreToAdd)
 
         // Increases the level if all the cards are matched
         if(areAllCardsMatched()) {
-            increaseLevel()
+            setTimeout(increaseLevel, 400);   
         }
     } else {
         setTimeout(() => {
@@ -238,22 +235,31 @@ function increaseLevel() {
     // Gets the current and new level
     const currentLevel = getCurrentLevel();
     const newLevel = currentLevel + 1;
-    
+
+    // Gets the seconds left and seconds started with
+    const secondsLeft = getSecondsLeft();
+    const secondsStartedWith = Number(getTimerElement().getAttribute("SecondsStartedWith"))
+
     // Increases the level
     getLevelElement().innerText = "Level: " + newLevel;
 
-    // Adds 100 points for completing the level
+    // Adds 100 points for completing the level and adds the seconds left from the timer
     addToScore(100)
+    addToScore(secondsLeft);
 
     // Deletes all the cards
     document.getElementById("Cards").textContent = "";
 
     // Starts a new game
-    startGame(10 + (newLevel*2))
+    startGame(10 + (newLevel*2), secondsLeft)
+}
+
+function endGame() {
+    
 }
 
 // Gets the cards to display to the user
-function startGame(numberOfCardsToDisplay) {
+function startGame(numberOfCardsToDisplay, secondsToStartWith) {
     // All the possible cards
     const allPossibleCards = [
         { cardName: "Ace of Spades", cardImg: "img/AS.png", isFlipped: false, hasBeenFlipped: false },
@@ -314,7 +320,8 @@ function startGame(numberOfCardsToDisplay) {
     let cardsToDisplay = pickCards(allPossibleCards, numberOfCardsToDisplay)
     cardsToDisplay = shuffleCards(cardsToDisplay);  // Shuffles the cards
 
-    displayCards(cardsToDisplay)
+    displayCards(cardsToDisplay);
+    startTimer(secondsToStartWith);
 }
 
 // Displays the cards to the DOM
@@ -347,5 +354,66 @@ function getFlippedCards() {
     return flippedCards
 }
 
-// Gets a list of what cards to display
-startGame(12);
+function getTimerElement() {
+    return document.getElementById("Timer");
+}
+
+function stopTimer() {
+    const intervalID = getTimerElement().getAttribute("IntervalID");
+    if(intervalID) {
+        clearInterval(intervalID);
+    }
+}
+
+function startTimer(secondsToStartWith) {
+    // Stops the previous level's timer
+    stopTimer();
+
+    // Sets the start time
+    changeTime(secondsToStartWith);
+
+    // Starts the timer
+    const intervalID = setInterval(() => {
+        if(secondsToStartWith === 0) {
+            clearInterval(intervalID)
+            endGame();
+        } else {
+            secondsToStartWith--;
+            changeTime(secondsToStartWith);
+        }
+    }, 1000);
+
+    // Adds the intervalID to the Timer element's attributes
+    // This allows us to end and restart the interval when starting a new level
+    getTimerElement().setAttribute("IntervalID", intervalID);
+
+    // Adds the starting time as an attribute
+    getTimerElement().setAttribute("SecondsStartedWith", secondsToStartWith)
+}
+
+function changeTime(timeToChangeToInSeconds) {
+    const timerElement = getTimerElement();
+
+    // Gets the seconds and minutes remaining
+    let minutes = Math.floor(timeToChangeToInSeconds / 60);
+    let seconds = timeToChangeToInSeconds - (minutes * 60)
+
+    // Adds another 0 if the seconds or minutes is less than 10
+    if(minutes < 10) minutes = "0" + minutes;
+    if(seconds < 10) seconds = "0" + seconds;
+
+    // Displays the time left
+    timerElement.innerText = minutes + ":" + seconds;
+}
+
+function getSecondsLeft() {
+    const timerElement = getTimerElement()
+
+    const minutesAndSeconds = timerElement.innerText.split(":");
+    let seconds = (Number(minutesAndSeconds[0]) * 60) + Number(minutesAndSeconds[1]);
+
+    return seconds;
+}
+
+// Starts the game
+startGame(12, 100);
