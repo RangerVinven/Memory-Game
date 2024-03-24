@@ -300,7 +300,10 @@ function endGame() {
         card.onclick = () => {}
     }
     
-    saveGame();
+    // Saves the game if it's not a practice game
+    if(getDifficulty() !== "Practice") {
+        saveGame();
+    }
 
     document.getElementById("End-Of-Game-Popup-Points-Header").innerText = "You scored " + getCurrentScore().toString() + " points!";
     document.getElementById("End-Of-Game-Popup").style.visibility = "visible";
@@ -414,8 +417,7 @@ function startGame(level) {
     cardsToDisplay = shuffleCards(cardsToDisplay);  // Shuffles the cards
 
     displayCards(cardsToDisplay);
-    // startTimer(secondsToStartWith);
-    startTimer(1);
+    startTimer(secondsToStartWith);
 }
 
 // Displays the cards to the DOM
