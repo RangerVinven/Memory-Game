@@ -253,12 +253,54 @@ function increaseLevel() {
     startGame(newLevel)
 }
 
+async function saveGame() {
+    sessionToken = localStorage.getItem("sessionToken");
+
+    // If the user is logged in
+    if (sessionToken && sessionToken != "") {
+        console.log("Saving the score");
+        fetch("http://localhost:8000/scores/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "score": getCurrentScore(),
+                "difficulty": getDifficulty(),
+                "sessionToken": sessionToken
+            })
+        });
+    } else {
+        changeNewGameToSignIn()
+    }
+
+}
+
+// Changes the "Want a New Game?" header in to a "Sign In to Save Your Game" 
+function changeNewGameToSignIn() {
+    // Changes the header
+    const newGameHeaderElement = document.getElementById("New-Game-Header");
+    newGameHeaderElement.innerText = "Sign-In to Save Your Game?";
+
+    // Saves the game to localStorage
+    localStorage.setItem("game", JSON.stringify({
+        "score": getCurrentScore(),
+        "difficulty": getDifficulty()
+    }))
+
+    // Changes the onclick for the yes button
+    document.getElementById("Yes-Btn").onclick = () => redirectToLoginPageToSave()
+    document.getElementById("No-Btn").onclick = () => window.location.assign("http://localhost:5500/main.html")
+}
+
 function endGame() {
     // Stops the user from clicking any new cards
     const cards = document.getElementById("Cards").children;
     for(const card of cards) {
         card.onclick = () => {}
     }
+    
+    saveGame();
 
     document.getElementById("End-Of-Game-Popup-Points-Header").innerText = "You scored " + getCurrentScore().toString() + " points!";
     document.getElementById("End-Of-Game-Popup").style.visibility = "visible";
@@ -270,6 +312,14 @@ function redirectToLeaderboard() {
 
 function reloadPage() {
     window.location.reload();
+}
+
+function redirectToLoginPageToSave() {
+    window.location.assign("http://127.0.0.1:5500/Web/log_in.html?saveGame=true");
+}
+
+function getDifficulty() {
+    return document.getElementById("Difficulties-Select").value
 }
 
 // Gets the cards to display to the user
@@ -286,7 +336,7 @@ function startGame(level) {
     let secondsToStartWith = 0;
 
     // Gets the difficulty
-    const difficulty = document.getElementById("Difficulties-Select").value
+    const difficulty = getDifficulty();
 
     // Sets the number of cards to display and the seconds to display on the timer
     if(difficulty === "Practice") {
@@ -364,7 +414,8 @@ function startGame(level) {
     cardsToDisplay = shuffleCards(cardsToDisplay);  // Shuffles the cards
 
     displayCards(cardsToDisplay);
-    startTimer(secondsToStartWith);
+    // startTimer(secondsToStartWith);
+    startTimer(1);
 }
 
 // Displays the cards to the DOM

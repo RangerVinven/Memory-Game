@@ -47,6 +47,12 @@
 
     <main>
         <script>
+            // Changes the sign-up button to have the saveGame=true parameter
+            if(window.location.search && window.location.search.includes("saveGame=true")) {
+                document.getElementById("sign_up").href = "sign_up.html?saveGame=true"
+                document.getElementById("Sign-Up-Link").href = "sign_up.html?saveGame=true"
+            }                
+
             function changeNavBar(){
             const sign_up = document.getElementById("sign_up");
             sign_up.innerText="My Account"
@@ -75,7 +81,27 @@
                 const data = await res.json()
                 const sessionToken = data.session_token
                 localStorage.setItem("sessionToken",sessionToken)
-            changeNavBar()
+                changeNavBar()
+
+                const pathParameters = window.location.search;
+                
+                // If the user is coming from playing the game because they want to save the results, this runs
+                if(pathParameters && pathParameters.includes("saveGame=true")) {
+
+                    const game = JSON.parse(localStorage.getItem("game"));
+                    fetch("http://localhost:8000/scores/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "score": game["score"],
+                            "difficulty": game["difficulty"],
+                            "sessionToken": sessionToken
+                        })
+                    });
+
+                }
 
             }
         </script>
@@ -84,6 +110,8 @@
                 <input id="email" type="email" placeholder="Email Address" />
                 <input id="password" type="password" placeholder="Password" />
                 <button type="button" onclick="loginUser()">Log In</button>
+
+                <h3>Don't have an account? <a id="Sign-Up-Link" href="sign_up.html?saveGame=true">Sign-Up!</a></h3>
             </div>
         </form>
     </main>
