@@ -22,14 +22,14 @@
 
     <main>
         <script>
-            function createUser() {
+            async function createUser() {
                 const username = document.getElementById("username").value;
                 const emailAddress = document.getElementById("email").value;
                 const firstName = document.getElementById("firstname").value;
                 const lastName = document.getElementById("lastname").value;
                 const password = document.getElementById("password").value;
 
-                fetch("http://localhost:8000/users/create", {
+                const req = await fetch("http://localhost:8000/users/create", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -43,6 +43,33 @@
 
                     })
                 })
+
+                const data = await req.json();
+                const sessionToken = data[0];
+                localStorage.setItem("sessionToken", sessionToken);
+
+                const pathParameters = window.location.search;
+
+
+                 // If the user is coming from playing the game because they want to save the results, this runs
+                 if(pathParameters && pathParameters.includes("saveGame=true")) {
+
+                    const game = JSON.parse(localStorage.getItem("game"));
+                    fetch("http://localhost:8000/scores/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "score": game["score"],
+                            "difficulty": game["difficulty"],
+                            "sessionToken": sessionToken
+                        })
+                    });
+
+                    window.location.assign("http://127.0.0.1:5500/main.html")
+
+                    }
             }
         </script>
         <form action="">
