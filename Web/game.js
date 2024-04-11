@@ -125,9 +125,10 @@ function convertCardNameToImageName(cardName) {
 
 // Flips a card to show it's number or back
 function flipCard(card) {
+
     // Runs if the card is showing the number
     if (!card.src.includes("img/blue_back.png")) {
-        card.src = "img/blue_back.png"
+        return;
     
     // Runs if the card is showing the back
     } else {
@@ -139,17 +140,12 @@ function flipCard(card) {
 
 // Removes the pairID number from the cardName (i.e, "Ace of Spades-1" or "Ace of Spades-2")
 function removePairIDFromCardName(cardName) {
-    return cardName.replace("-1").replace("-2");
+    return cardName.replace("-1", "").replace("-2", "");
 }
 
 // Returns a list of all the cards
 function getAllCards() {
     return document.getElementById("Cards").children
-}
-
-// Removes the pairID ("-1" or "-2") from the cardName
-function removePairIDFromCardName(cardName) {
-    return cardName.replace("-1", "").replace("-2", "");
 }
 
 function getScoreElement() {
