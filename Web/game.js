@@ -352,6 +352,11 @@ function startGame(level) {
         secondsToStartWith = (getSecondsLeft() === 0 && level === 1) ? 150 : getSecondsLeft();
     }
 
+    if(numberOfCardsToDisplay > 52) {
+        document.getElementById("Popup-Header").innerText = "You Win!"
+        endGame()
+    }
+
     // All the possible cards
     const allPossibleCards = [
         { cardName: "Ace of Spades", cardImg: "img/AS.png", isFlipped: false, hasBeenFlipped: false },
