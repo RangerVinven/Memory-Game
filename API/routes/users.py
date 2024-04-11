@@ -15,7 +15,7 @@ def listUsers():
 
 
 
-@app.get("/")
+@app.post("/")
 def listUsers(request:SessionTokenUser):
     cursor.execute("SELECT * FROM Users WHERE session_token =%s;",(request.session_token,))
     return cursor.fetchone()
