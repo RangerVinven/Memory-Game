@@ -39,26 +39,34 @@
         </script>
 
 
-        <form action="">
-            <div class="account_details">
-                <H1>First Name</H1><input placeholder=""></input>
-                <H1>Last Name</H1><input placeholder=""></input>
-                <H1>Email Address</H1><input placeholder=""></input>
-                <H1>Username</H1><input placeholder=""></input>
+        <div class="account_details">
+            <H1>First Name</H1>
+            <input id="firstName"></input>
 
-                <H1>Change Password</H1><input placeholder=""></input>
+            <H1>Last Name</H1>
+            <input id="lastName"></input>
 
-                <br><br><br>
-                <div class="account_buttons">
-                    <input type="button" onclick="location.href='personal_leaderboard.html';" value="My Scores" />
-                    <input type="submit" value="Save"></button>
+            <H1>Email Address</H1>
+            <input id="email"></input>
+
+            <H1>Username</H1>
+            <input id="username"></input>
+
+            <H1>Change Password</H1>
+            <input id="password"></input>
+
+            <br><br><br>
+            <div class="account_buttons">
+                <button type="submit" onclick="location.href='personal_leaderboard.html';">My Scores</button>
+                <button type="submit" id="save" onclick="editUserData()">Save</button>
+                <button type="submit" id="delete" onclick="deleteUserData()">Delete Account</button>
 
 
-                    <script>
-                        sessionToken = localStorage.getItem("sessionToken");
+                <script>
+                    sessionToken = localStorage.getItem("sessionToken");
 
-                        async function getUserData() {
-                            const req = await fetch("http://localhost:8000/users/", {
+                    async function getUserData() {
+                        const req = await fetch("http://localhost:8000/users/", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -68,16 +76,100 @@
                             })
 
                         });
-                            const data = await req.json()
-                            console.log(data)
-                            }
+                        const data = await req.json()
+                        //shows data from API in the console
+                        const information = console.log(data)
+                        //displays data from console on the my account page
+                        document.getElementById("email").value = data["email"]
+                        document.getElementById("firstName").value = data["firstname"]
+                        document.getElementById("lastName").value = data["lastname"]
+                        document.getElementById("username").value = data["username"]
+                        document.getElementById("password").value = ""
 
-                        if (sessionToken && sessionToken != "") {
-                            getUserData()
-                        }
-                    </script>
-                </div>
+                    }
+
+                    if (sessionToken && sessionToken != "") {
+                        getUserData()
+
+                    }
+
+
+                </script>
+                <script>
+
+
+
+                    async function editUserData() {
+
+                        sessionToken = localStorage.getItem("sessionToken");
+
+                        let email = document.getElementById("email");
+                        let firstName = document.getElementById("firstName");
+                        let lastName = document.getElementById("lastName");
+                        let userName = document.getElementById("username");
+                        let password = document.getElementById("password");
+
+                        console.log(firstName.value);
+                        console.log(lastName.value);
+                        console.log(email.value);
+                        console.log(userName.value);
+                        console.log(password.value);
+
+                        const req = await fetch("http://localhost:8000/users/edit", {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                "session_token": sessionToken,
+                                "email": email.value,
+                                "firstname": firstName.value,
+                                "lastname": lastName.value,
+                                "username": userName.value,
+                                "password": password.value
+                            })
+                        });
+                        const data = await req.json()
+                        console.log(data)
+                    }
+
+                </script>
+
+
+                <script>
+                    sessionToken = localStorage.getItem("sessionToken");
+                    async function deleteUserData() {
+                        const req = await fetch("http://localhost:8000/users/delete", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                "session_token": sessionToken,
+                            })
+
+                        });
+                        const data = await req.json()
+                        localStorage.setItem("sessionToken", "")
+                        setTimeout(() => window.location.assign("main.html"),4000)
+
+                        //TODO style modal box telling the user that their account has been deleted and that they will be redirected
+                        var modal = document.createElement("modal");
+                            modal.innerHTML = `
+                            <div id="myModal" class="modal">
+
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <p>Some text in the Modal..</p>
+                                </div>
+                            </div>`;
+                            document.body.appendChild(modal, document.body.firstChild);
+                        
+                    }
+                </script>
+
             </div>
+        </div>
         </form>
     </main>
 
