@@ -71,9 +71,12 @@ def deleteUser(request:SessionTokenUser):
 #TODO edit user details
 @app.put("/edit")
 def editUser(request:UpdateUser):
-    password=hashPass(request.password)
-    cursor.execute("UPDATE Users SET username = %s, firstname =%s, lastname =%s, email = %s, password = %s WHERE session_token = %s",(request.username,request.firstname,request.lastname,request.email,password,request.session_token))
+    if request.password == None or request.password == "":
+        cursor.execute("UPDATE Users SET username = %s, firstname =%s, lastname =%s, email = %s WHERE session_token = %s",(request.username,request.firstname,request.lastname,request.email,request.session_token))
+    
+    else:
+        password=hashPass(request.password)
+        cursor.execute("UPDATE Users SET username = %s, firstname =%s, lastname =%s, email = %s, password = %s WHERE session_token = %s",(request.username,request.firstname,request.lastname,request.email,password,request.session_token))
 
     db.commit()
-
 
