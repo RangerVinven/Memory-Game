@@ -59,7 +59,36 @@
             <div class="account_buttons">
                 <button type="submit" onclick="location.href='personal_leaderboard.html';">My Scores</button>
                 <button type="submit" id="save" onclick="editUserData()">Save</button>
-                <button type="submit" id="delete" onclick="deleteUserData()">Delete Account</button>
+                <button type="submit" id="first_delete">Delete Account</button>
+
+                <div class="modal" id="modal">
+                    <div class="modal_inner">
+                        <h2>Delete Account?</h2>
+                        <p>Are you sure you want to delete your account? This action cannot be undone.
+                        </p>
+                        <div class="modal_buttons">
+                            <button id="closeModal">No, Cancel</button>
+                            <button id="delete" name="data" type="button" onclick="deleteUserData()">Yes, Delete
+                                Account</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <script>
+                    //adds the delete options for the user
+                    const open_button = document.getElementById('first_delete');
+                    const close_button = document.getElementById('closeModal');
+                    const modal = document.getElementById('modal');
+
+                    open_button.addEventListener('click', () => {
+                        modal.classList.add("open");
+                    });
+
+                    close_button.addEventListener('click', () => {
+                        modal.classList.remove("open");
+                    });
+
+                </script>
 
 
                 <script>
@@ -78,7 +107,7 @@
                         });
                         const data = await req.json()
                         //shows data from API in the console
-                        const information = console.log(data)
+                        console.log(data)
                         //displays data from console on the my account page
                         document.getElementById("email").value = data["email"]
                         document.getElementById("firstName").value = data["firstname"]
@@ -151,11 +180,13 @@
                         });
                         const data = await req.json()
                         localStorage.setItem("sessionToken", "")
-                        setTimeout(() => window.location.assign("main.html"),4000)
+                        setTimeout(() => window.location.assign("main.html"), 4000)
 
                         //TODO style modal box telling the user that their account has been deleted and that they will be redirected
+
+
                         var modal = document.createElement("modal");
-                            modal.innerHTML = `
+                        modal.innerHTML = `
                             <div id="myModal" class="modal">
 
                                 <div class="modal-content">
@@ -163,8 +194,8 @@
                                     <p>Some text in the Modal..</p>
                                 </div>
                             </div>`;
-                            document.body.appendChild(modal, document.body.firstChild);
-                        
+                        document.body.appendChild(modal, document.body.firstChild);
+
                     }
                 </script>
 

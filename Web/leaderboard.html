@@ -1,31 +1,79 @@
 <html>
 
-    <head>
-        <link rel = "stylesheet" type = "text/css" href = "main.css">
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
 
-    <body>
+<body>
 
-        <header>
+    <header>
 
-        </header>
+    </header>
 
-        <nav>
-            <ul>
-                <li> <a href="main.html">Play</a> </li>
+    <nav>
+        <ul>
+            <li> <a href="main.html">Play</a> </li>
             <li> <a href="leaderboard.html">Leaderboard</a></li>
             <li> <img src="playing-cards.png" width=50px height=50px></li>
             <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
             <li> <a id="login" href="log_in.html">Log In</a></li>
-            </ul>
-        </nav>
+        </ul>
+    </nav>
 
-        <main>
 
-        </main>
-        
 
-    </body>
+    <main>
+        <section class="playboard">
+
+        <div id="Difficulties">
+            <select name="difficulties" id="Difficulties-Select">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>     
+        </div>
+
+        <div class ="leaderboard">
+        <table class = "table_center">
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+
+
+            
+            <tr>
+                <td id="">
+                    Username Data
+                </td>
+
+                <td id="">
+                    score data
+                </td>
+            </tr>
+        </div>
+        </table>
+    </section>
+
+
+
+    </main>
+<script>
+    function getDifficulty() {
+        return document.getElementById("Difficulties-Select").value
+    }
+
+    // Gets the difficulty
+    const difficulty = getDifficulty();
+
+</script>
+
+</body>
 
 <script src="checkIfLoggedIn.js"></script>
+
 </html>
