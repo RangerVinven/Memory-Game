@@ -27,7 +27,7 @@ def listScores():
 # Gets the highscores for either the Easy, Medium or Hard scores
 # If the user passes in their session token, it shows just their scores
 # If not, then it gets the scores from all the users
-@app.get("/highscores")
+@app.post("/highscores")
 def getHighScores(sessionToken: SessionTokenScore | None = None, difficulty: str = "Easy"):
 
     # Ensures difficulty is either Easy, Medium or Hard
@@ -35,7 +35,7 @@ def getHighScores(sessionToken: SessionTokenScore | None = None, difficulty: str
         return HTTPException(status_code=400, detail="Difficulty must be Easy, Medium or Hard")
 
     # Defines the query so far
-    query = "SELECT score, userID FROM Scores WHERE difficulty=%s "
+    query = "SELECT u.username, s.score FROM Scores s JOIN Users u ON s.userID=u.userID WHERE difficulty=%s "
     variables = [difficulty]
 
     # If the user is wants to see their personal scores
@@ -46,13 +46,12 @@ def getHighScores(sessionToken: SessionTokenScore | None = None, difficulty: str
         if userID == "":
             return HTTPException(status_code=400, detail="Invalid session token")
         
-        query += "AND userID=%s"
+        query += "AND u.userID=%s"
         variables.append(userID)
 
     # Gets and returns the userID
     cursor.execute(query + " ORDER BY score asc LIMIT 10;", tuple(variables))
 
-    # TODO: Change userID to the username
     return cursor.fetchall()
 
 # Creates a score

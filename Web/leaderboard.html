@@ -25,6 +25,13 @@
     <main>
         <section class="playboard">
 
+        <div id="Difficulties">
+            <select onchange="getScores()" name="difficulties" id="Difficulties-Select">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>     
+        </div>
             <div id="Difficulties">
                 <select name="difficulties" id="Difficulties-Select">
                     <option value="Easy">Easy</option>
@@ -33,6 +40,20 @@
                 </select>
             </div>
 
+        <div class ="leaderboard">
+        <h1 class ="leader_header">Leaderboard</h1>
+        <table id="table_element" class = "table_center">
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+        </div>
+        </table>
+    </section>
             <div class="leaderboard">
                 <h1 class="leader_header">Leaderboard</h1>
                 <table class="table_center">
@@ -61,6 +82,97 @@
 
 
     </main>
+<script>
+
+    function userWantsPersonalScores() {
+        // Gets path parameters
+        const pathParameters = new URLSearchParams(window.location.search);
+        
+        return pathParameters.has("personal") 
+    }
+
+    async function getScores() {
+        clearScores() // Clears the scores
+
+        const difficulty = getDifficulty();
+        let requestParameters = { "method": "POST" }
+
+        // Checks if the user wants their personal scores 
+        if (userWantsPersonalScores()) {
+            const sessionToken = getSessionToken();
+
+            requestParameters = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "sessionToken": sessionToken
+                })
+            }
+        }
+        // Gets the scores
+        const req = await fetch("http://127.0.0.1:8000/scores/highscores?difficulty=" + difficulty, requestParameters);
+        const scores = await req.json()
+
+        console.log(scores)
+
+        // Gets the table element
+        const tableElement = getTableElement() 
+
+        // Loops through the scores and displays them
+        scores.forEach(score => {
+            displayScore(score, tableElement)
+        })
+    }
+
+    function getSessionToken() {
+        const sessionToken = localStorage.getItem("sessionToken");
+
+        if (sessionToken === null || sessionToken === "") {
+            return null
+        } else {
+            return sessionToken
+        }
+    }
+
+    function getTableElement() {
+        return document.getElementById("table_element");
+    }
+    
+    function clearScores() {
+        const tableElement = getTableElement();
+        const rows = tableElement.childNodes;
+
+        // Deletes each rom from the DOM
+        rows.forEach(row => {
+            if (row.nodeName == "TR") row.remove(); // Removes the row from the DOM
+        })
+    }
+
+    function displayScore(score, tableElement) {
+        // Creates the new row
+        const newRow = document.createElement("tr");
+
+        let newTableData = document.createElement("td") // Creates the username column
+        newTableData.textContent = score["username"]
+       
+        // Adds the column to the row
+        newRow.appendChild(newTableData)
+    
+        newTableData = document.createElement("td") // Creates the score column
+        newTableData.textContent = score["score"]
+        
+        // Adds the column to the row
+        newRow.appendChild(newTableData)
+
+        // Adds the row to the table
+        tableElement.appendChild(newRow)
+    }
+
+    function getDifficulty() {
+        return document.getElementById("Difficulties-Select").value
+    }
     <script>
         function getDifficulty() {
             return document.getElementById("Difficulties-Select").value
@@ -81,6 +193,8 @@
         })
 
 
+    getScores();
+</script>
     </script>
 
 </body>
