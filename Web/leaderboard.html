@@ -25,53 +25,63 @@
     <main>
         <section class="playboard">
 
-        <div id="Difficulties">
-            <select name="difficulties" id="Difficulties-Select">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
-            </select>     
-        </div>
+            <div id="Difficulties">
+                <select name="difficulties" id="Difficulties-Select">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
 
-        <div class ="leaderboard">
-        <h1 class ="leader_header">Leaderboard</h1>
-        <table class = "table_center">
-            <tr>
-                <th>
-                    Username
-                </th>
-                <th>
-                    Score
-                </th>
-            </tr>
+            <div class="leaderboard">
+                <h1 class="leader_header">Leaderboard</h1>
+                <table class="table_center">
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Score
+                        </th>
+                    </tr>
 
+                    <tr>
+                        <td id="leader_username">
+                            Username data
+                        </td>
 
-
-            <tr>
-                <td id="">
-                    Username Data
-                </td>
-
-                <td id="">
-                    score data
-                </td>
-            </tr>
-        </div>
-        </table>
-    </section>
+                        <td id="leader_score">
+                            score data
+                        </td>
+                    </tr>
+            </div>
+            </table>
+        </section>
 
 
 
     </main>
-<script>
-    function getDifficulty() {
-        return document.getElementById("Difficulties-Select").value
-    }
+    <script>
+        function getDifficulty() {
+            return document.getElementById("Difficulties-Select").value
+        }
 
-    // Gets the difficulty
-    const difficulty = getDifficulty();
+        // Gets the difficulty
+        const difficulty = getDifficulty();
 
-</script>
+        fetch("http://localhost:8000/scores/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "score": getCurrentScore(),
+                "difficulty": getDifficulty(),
+            })
+        })
+
+
+    </script>
 
 </body>
 
