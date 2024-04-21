@@ -106,8 +106,7 @@
 
                         });
                         const data = await req.json()
-                        //shows data from API in the console
-                        console.log(data)
+                        
                         //displays data from console on the my account page
                         document.getElementById("email").value = data["email"]
                         document.getElementById("firstName").value = data["firstname"]
