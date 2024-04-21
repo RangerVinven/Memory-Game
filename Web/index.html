@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li> <a href="main.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
+
+
+    <main>
+
+        <section class="playboard">
+
+            <div id="Difficulties">
+                <select name="difficulties" id="Difficulties-Select">
+                    <option value="Practice">Practice</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+
+            </div>
+
+            <div id="Play-Area">
+                <h3 id="Timer">00:00</h3>
+
+                <!-- Cards -->
+                <div id="Cards">
+
+                </div>
+            </div>
+
+            <h3 id="Score">Score: 0</h3>
+            <h3 id="Level">Level: 1</h3>
+
+            <div id="Start-Game">
+                <button onclick="startGame(1)" id="StartButton">Start Game?</button>
+            </div>
+
+            <div id="End-Of-Game-Popup">
+                <h1 id="Popup-Header">Time's Up!</h1>
+
+                <div id="Points-Div">
+                    <h2 id="End-Of-Game-Popup-Points-Header">You scored 9000 points</h2>
+                </div>
+
+                <div id="Buttons">
+                    <h3 id="New-Game-Header">Start A New Game?</h3>
+                    <button id="No-Btn" class="New-Game-Btn" onclick="redirectToLeaderboard()">No</button>
+                    <button id="Yes-Btn" class="New-Game-Btn" onclick="reloadPage()">Yes</button>
+                </div>
+            </div>
+
+        </section>
+        <div class="special_thanks">
+            <p>Special thanks to American Contract Bridge League and Freepik for the images used in this website</p>
+            <a href="https://acbl.mybigcommerce.com/52-playing-cards/">American Contract Bridge League</a>
+            <br>
+            <a href="https://www.flaticon.com/free-icon/playing-cards_3410824">Freepik</a>
+        </div>
+    </main>
+
+
+</body>
+
+<script src="checkIfLoggedIn.js"></script>
+
+<script src="game.js"></script>
+
+</html>
