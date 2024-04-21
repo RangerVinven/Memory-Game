@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: memory-db
+    build: Database/
+    ports:
+      - "3307:3306"
+    networks:
+      memory-game-network:
+        ipv4_address: 172.20.0.3
+
+  api:
+    image: memory-api
+    build: API/
+    ports:
+      - "8000:8000"
+    networks:
+      memory-game-network:
+        ipv4_address: 172.20.0.2
+
+networks:
+  memory-game-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
