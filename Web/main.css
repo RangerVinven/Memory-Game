@@ -3,6 +3,7 @@ body{
     margin: 0px;
 }
 
+ /* Start of Navigation CSS*/
 nav{
     text-align: center;
     padding-top: 2px;
@@ -34,19 +35,8 @@ a:visited {
 a:hover {
     color: #808080;
 }
+ /* End of Navigation CSS*/
 
-.playBoard{
-    background-color: #421e57;
-    border: 2px solid black;
-    min-height: 600px;
-    width: 85%;
-    margin: 10px auto;
-    padding-bottom: 10px;
-
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
 
 .form{
     display: flex;
@@ -60,13 +50,30 @@ a:hover {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-
 }
 
 .form input{
 border-radius: 10px;
 border-color: black;
+font-size: 24px;
+}
 
+.form button{
+    background-color: #7f4097;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    border-color: #5c2f6e;
+    border-style: solid;
+}
+
+.form Button:hover {
+    background-color: #5c2f6e;
 }
 .account_details{
     display: flex;
@@ -75,6 +82,21 @@ border-color: black;
     align-content: center;
     align-items: center;
 }
+
+ /* Start of Game CSS*/
+.playBoard{
+    background-color: #421e57;
+    border: 2px solid black;
+    min-height: 600px;
+    width: 85%;
+    margin: 10px auto;
+    padding-bottom: 10px;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
 
 #Game-Container {
     display: flex;
@@ -229,6 +251,7 @@ border-color: black;
     }
 }
 
+
 #StartButton:hover {
     background-color: #5c2f6e;
 }
@@ -240,7 +263,10 @@ border-color: black;
 .Sign-Up-Link:hover {
     color: #98b0ff;
 }
+ /* End of Game CSS*/
 
+
+/*Start of Modal CSS*/ 
 .modal{
     background-color:#7f4097;
     flex-direction: row;
@@ -279,6 +305,7 @@ border-color: black;
     flex-direction: row;
     justify-content: space-between;
   }
+
   .closebutton {
       display: flex;
       flex-direction: row;
@@ -286,6 +313,45 @@ border-color: black;
       justify-content: flex-end;
       margin-right: 10px;
   }
+
+.modal button{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 6px;
+    background-color: #7f4097;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    border-color: #5c2f6e;
+    border-style: solid;
+
+}
+
+.modal .close_button{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.modal Button:hover {
+    background-color: #5c2f6e;
+}
+
+  /*End of Modal CSS*/ 
+
+
+
+
+  /*Start of Leaderboard CSS*/ 
 
 .leaderboard{
     margin-left: auto;
@@ -317,6 +383,10 @@ h1{
     color: #cfcfcf;
     font-family: Arial, Helvetica, sans-serif;    
 }
+  /*End of Leaderboard CSS*/ 
+
+
+
 
 .special_thanks{
     max-width: fit-content;
@@ -333,12 +403,4 @@ p{
     color: #cfcfcf;
     font-family: Arial, Helvetica, sans-serif;
     
-}
-
-.modal .close_button{
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 4px;
 }
