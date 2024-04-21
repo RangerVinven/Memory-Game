@@ -57,12 +57,10 @@
 
                 const pathParameters = window.location.search;
 
-                console.log(pathParameters.includes("saveGame=true"))
 
                 // If the user is coming from playing the game because they want to save the results, this runs
                 if(pathParameters && pathParameters.includes("saveGame=true")) {
 
-                    console.log("save game please!");
                     const game = JSON.parse(localStorage.getItem("game"));
                     await fetch("http://localhost:8000/scores/", {
                         method: "POST",
