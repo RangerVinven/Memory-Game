@@ -31,7 +31,6 @@
                 login.innerText = "Log Out"
                 login.href = "sign_out.html"
             }
-
             changeNavBar()
         </script>
 
@@ -62,13 +61,13 @@
 
                 <!--Save Button-->
                 <button type="submit" id="save" onclick="editUserData()">Save</button>
-                
+
                 <!--Data Saved account modal box-->
                 <div class="modal" id="save_modal">
                     <div class="modal_inner">
                         <h2>Changes Saved</h2>
                         <div class="modal_buttons">
-                        <button class ="close_button"id="save_close_button">Close</button>
+                            <button class="close_button" id="save_close_button">Close</button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <script>
                     //adds the delete options for the user
                     const delete_open_button = document.getElementById('first_delete');
@@ -121,7 +120,13 @@
 
                 </script>
 
-             
+                <div class="modal" id="delete_modal_confirmation">
+                    <div class="modal_inner">
+                        <h2>Your Account Has Been Deleted</h2>
+                        <p>You will be redirected</p>
+                    </div>
+                </div>
+
 
                 <script>
                     sessionToken = localStorage.getItem("sessionToken");
@@ -138,7 +143,7 @@
 
                         });
                         const data = await req.json()
-                        
+
                         //displays data from console on the my account page
                         document.getElementById("email").value = data["email"]
                         document.getElementById("firstName").value = data["firstname"]
@@ -206,12 +211,14 @@
                             })
 
                         });
+
                         const data = await req.json()
                         localStorage.setItem("sessionToken", "")
                         setTimeout(() => window.location.assign("main.html"), 4000)
 
-                        //TODO style modal box telling the user that their account has been deleted and that they will be redirected
-
+                        //adds the delete options for the user
+                        const delete_close_button = document.getElementById('closeModal');
+                        delete_modal_confirmation.classList.add("open");
 
                         var modal = document.createElement("modal");
                         modal.innerHTML = `
