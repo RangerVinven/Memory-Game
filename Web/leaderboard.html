@@ -36,7 +36,7 @@
         <div class ="leaderboard">
         <h1 class ="leader_header">Leaderboard</h1>
         <table id="table_element" class = "table_center">
-            <tr>
+            <tr id="table_headers">
                 <th>
                     Username
                 </th>
@@ -65,30 +65,30 @@
 
         const difficulty = getDifficulty();
         let requestParameters = { "method": "POST" }
-
+            
         // Checks if the user wants their personal scores 
         if (userWantsPersonalScores()) {
             const sessionToken = getSessionToken();
-
+            
             requestParameters = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "sessionToken": sessionToken
-                })
-            }
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "sessionToken": sessionToken
+            })
+        }
         }
         // Gets the scores
         const req = await fetch("http://127.0.0.1:8000/scores/highscores?difficulty=" + difficulty, requestParameters);
         const scores = await req.json()
-
+        
         console.log(scores)
-
+        
         // Gets the table element
         const tableElement = getTableElement() 
-
+        
         // Loops through the scores and displays them
         scores.forEach(score => {
             displayScore(score, tableElement)
@@ -110,13 +110,8 @@
     }
     
     function clearScores() {
-        const tableElement = getTableElement();
-        const rows = tableElement.childNodes;
-
-        // Deletes each rom from the DOM
-        rows.forEach(row => {
-            if (row.nodeName == "TR") row.remove(); // Removes the row from the DOM
-        })
+        const rows = Array.from(document.getElementsByTagName("tr")).filter(row => row.id !== "table_headers");
+        rows.forEach(row => row.remove())
     }
 
     function displayScore(score, tableElement) {
