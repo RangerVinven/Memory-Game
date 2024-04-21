@@ -38,6 +38,9 @@ a:hover {
  /* End of Navigation CSS*/
 
 
+
+ /* Start of Form and My Account CSS*/
+
 .form{
     display: flex;
     flex-direction: column;
@@ -81,7 +84,33 @@ font-size: 24px;
     flex-wrap: wrap;
     align-content: center;
     align-items: center;
+
+
+    input{
+        font-size: 24;
+    }
+
+    button{
+        background-color: #7f4097;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        padding: 10px 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        font-size: 24px;
+        border-color: #5c2f6e;
+        border-style: solid;
+    }
+
+    Button:hover {
+        background-color: #5c2f6e;
+    }
 }
+ /* End of Form and My Account CSS*/
+
+
 
  /* Start of Game CSS*/
 .playBoard{
