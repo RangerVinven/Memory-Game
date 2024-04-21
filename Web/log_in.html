@@ -1,30 +1,4 @@
 <html>
-
-
-<!-- I was showing Nicol how we'd make the request to save the user. We thought we'd keep this here incase you want to refer to it -->
-<!-- <script>
-    function createUser() {
-        const username = document.getElementById("Username").innerText;
-        const password = document.getElementById("Password").innerText;
-
-        fetch("http://localhost:8000/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: {
-                "username": username,
-                "password": password
-            }
-        })
-    }
-</script>
-
-    <input id="Username" placeholder="Username" />
-    <input id="Password" placeholder="Password" />
-    <button type="button" onclick="createUser()">Sign-Up</button> -->
-<!-- I was showing Nicol how we'd make the request to save the user. We thought we'd keep this here incase you want to refer to it -->
-
 <head>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
@@ -63,7 +37,6 @@
             login.href="sign_out.html"
         }
 
-
             async function loginUser() {
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
@@ -84,7 +57,8 @@
                 changeNavBar()
 
                 const pathParameters = window.location.search;
-                
+                window.location.assign("account.html")
+
                 // If the user is coming from playing the game because they want to save the results, this runs
                 if(pathParameters && pathParameters.includes("saveGame=true")) {
 

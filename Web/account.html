@@ -50,43 +50,78 @@
             <input id="username"></input>
 
             <H1>Change Password</H1>
-            <input id="password"></input>
+            <input type="password" id="password"></input>
 
             <br><br><br>
+
+            <!--Account Buttons Options-->
+
+            <!--Shows the user's personal scores-->
             <div class="account_buttons">
                 <button type="submit" onclick="location.href='leaderboard.html?personal=True';">My Scores</button>
+
+                <!--Save Button-->
                 <button type="submit" id="save" onclick="editUserData()">Save</button>
+                
+                <!--Data Saved account modal box-->
+                <div class="modal" id="save_modal">
+                    <div class="modal_inner">
+                        <h2>Changes Saved</h2>
+                        <div class="modal_buttons">
+                        <button class ="close_button"id="save_close_button">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    //adds the saved data notification for the user
+                    const save_open_button = document.getElementById('save');
+                    const save_close_button = document.getElementById('save_close_button');
+                    const save_modal = document.getElementById('save_modal');
+
+                    save_open_button.addEventListener('click', () => {
+                        save_modal.classList.add("open");
+                    });
+
+                    save_close_button.addEventListener('click', () => {
+                        save_modal.classList.remove("open");
+                    });
+                </script>
+
+
+
+                <!--delete account button-->
                 <button type="submit" id="first_delete">Delete Account</button>
 
-                <div class="modal" id="modal">
+                <!--delete account modal box-->
+                <div class="modal" id="delete_modal">
                     <div class="modal_inner">
                         <h2>Delete Account?</h2>
-                        <p>Are you sure you want to delete your account? This action cannot be undone.
-                        </p>
+                        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
                         <div class="modal_buttons">
                             <button id="closeModal">No, Cancel</button>
-                            <button id="delete" name="data" type="button" onclick="deleteUserData()">Yes, Delete
-                                Account</button>
+                            <button id="delete" name="data" type="button" onclick="deleteUserData()">Yes, Delete Account</button>
                         </div>
                     </div>
                 </div>
                 
                 <script>
                     //adds the delete options for the user
-                    const open_button = document.getElementById('first_delete');
-                    const close_button = document.getElementById('closeModal');
-                    const modal = document.getElementById('modal');
+                    const delete_open_button = document.getElementById('first_delete');
+                    const delete_close_button = document.getElementById('closeModal');
+                    const delete_modal = document.getElementById('delete_modal');
 
-                    open_button.addEventListener('click', () => {
-                        modal.classList.add("open");
+                    delete_open_button.addEventListener('click', () => {
+                        delete_modal.classList.add("open");
                     });
 
-                    close_button.addEventListener('click', () => {
-                        modal.classList.remove("open");
+                    delete_close_button.addEventListener('click', () => {
+                        delete_modal.classList.remove("open");
                     });
 
                 </script>
 
+             
 
                 <script>
                     sessionToken = localStorage.getItem("sessionToken");
@@ -115,15 +150,12 @@
 
                     if (sessionToken && sessionToken != "") {
                         getUserData()
-
                     }
 
 
                 </script>
+
                 <script>
-
-
-
                     async function editUserData() {
 
                         sessionToken = localStorage.getItem("sessionToken");
