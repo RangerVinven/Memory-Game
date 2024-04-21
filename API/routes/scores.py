@@ -50,7 +50,7 @@ def getHighScores(sessionToken: SessionTokenScore | None = None, difficulty: str
         variables.append(userID)
 
     # Gets and returns the userID
-    cursor.execute(query + " ORDER BY score asc LIMIT 10;", tuple(variables))
+    cursor.execute(query + " ORDER BY score desc LIMIT 10;", tuple(variables))
 
     return cursor.fetchall()
 

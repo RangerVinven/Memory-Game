@@ -242,7 +242,7 @@ border-color: black;
 }
 
 .modal{
-    background-color:#5592dd;
+    background-color:#7f4097;
     flex-direction: row;
     position: fixed;
     top: 50%;
@@ -254,6 +254,9 @@ border-color: black;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-style: solid;
+    border-color:  #5c2f6e; 
+    border-width: 2px;
   }
   
   .modal.open{
@@ -282,7 +285,6 @@ border-color: black;
       flex-wrap: wrap;
       justify-content: flex-end;
       margin-right: 10px;
-  
   }
 
 .leaderboard{
@@ -315,3 +317,21 @@ h1{
     color: #cfcfcf;
     font-family: Arial, Helvetica, sans-serif;    
 }
+
+.special_thanks{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.special_thanks a {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    border-bottom: 1px solid #cfcfcf;
+}
+p{
+    color: #cfcfcf;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
