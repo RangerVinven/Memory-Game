@@ -47,7 +47,7 @@
                 const data = await req.json();
                 let sessionToken = "";
                 
-                if(data[0] === "sesion_token") {
+                if(data[0] === "session_token") {
                     sessionToken = data[1]
                 } else {
                     sessionToken = data[0]
