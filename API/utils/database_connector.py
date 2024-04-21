@@ -4,7 +4,7 @@ from time import sleep
 connected = False
 while not connected:
     try:
-        db = mysql.connector.connect(user="root", password="root", host="127.0.0.1", port="3307", database="Memory_Game")
+        db = mysql.connector.connect(user="root", password="root", host="172.20.0.3", port="3306", database="Memory_Game")
         cursor = db.cursor(dictionary=True,buffered=True)
 
         connected = True

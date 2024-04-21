@@ -58,11 +58,11 @@
                 const pathParameters = window.location.search;
 
 
-                 // If the user is coming from playing the game because they want to save the results, this runs
-                 if(pathParameters && pathParameters.includes("saveGame=true")) {
+                // If the user is coming from playing the game because they want to save the results, this runs
+                if(pathParameters && pathParameters.includes("saveGame=true")) {
 
                     const game = JSON.parse(localStorage.getItem("game"));
-                    fetch("http://localhost:8000/scores/", {
+                    await fetch("http://localhost:8000/scores/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -73,11 +73,8 @@
                             "sessionToken": sessionToken
                         })
                     });
-
-                    window.location.assign("http://127.0.0.1:5500/main.html")
-
                     }
-            window.location.assign("account.html")
+                window.location.assign("account.html")
         
             }
         </script>
