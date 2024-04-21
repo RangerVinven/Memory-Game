@@ -32,9 +32,6 @@
                 login.href = "sign_out.html"
             }
 
-            const data = await res.json()
-            const sessionToken = data.session_token
-            localStorage.setItem("sessionToken", sessionToken)
             changeNavBar()
         </script>
 
