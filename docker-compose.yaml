@@ -1,17 +1,24 @@
 version: '3.8'
 
 services:
+
+  web:
+    build: Web/
+    ports:
+      - "80:80"
+    networks:
+      memory-game-network:
+        ipv4_address: 172.20.0.4
+
   db:
-    image: memory-db
     build: Database/
     ports:
-      - "3307:3306"
+      - "3306:3306"
     networks:
       memory-game-network:
         ipv4_address: 172.20.0.3
 
   api:
-    image: memory-api
     build: API/
     ports:
       - "8000:8000"
