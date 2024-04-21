@@ -45,8 +45,14 @@
                 })
 
                 const data = await req.json();
-                const sessionToken = data[0];
-                console.log(data);
+                let sessionToken = "";
+                
+                if(data[0] === "sesion_token") {
+                    sessionToken = data[1]
+                } else {
+                    sessionToken = data[0]
+                }
+                
                 localStorage.setItem("sessionToken", sessionToken);
 
                 const pathParameters = window.location.search;
