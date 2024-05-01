@@ -1,0 +1,246 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li> <a href="index.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <script>
+            function changeNavBar() {
+                const sign_up = document.getElementById("sign_up");
+                sign_up.innerText = "My Account"
+                sign_up.href = "account.html"
+
+                const login = document.getElementById("login");
+                login.innerText = "Log Out"
+                login.href = "sign_out.html"
+            }
+            changeNavBar()
+        </script>
+
+
+        <div class="account_details">
+            <H1>First Name</H1>
+            <input id="firstName"></input>
+
+            <H1>Last Name</H1>
+            <input id="lastName"></input>
+
+            <H1>Email Address</H1>
+            <input id="email"></input>
+
+            <H1>Username</H1>
+            <input id="username"></input>
+
+            <H1>Change Password</H1>
+            <input type="password" id="password"></input>
+
+            <br><br><br>
+
+            <!--Account Buttons Options-->
+
+            <!--Shows the user's personal scores-->
+            <div class="account_buttons">
+                <button type="submit" onclick="location.href='leaderboard.html?personal=True';">My Scores</button>
+
+                <!--Save Button-->
+                <button type="submit" id="save" onclick="editUserData()">Save</button>
+
+                <!--Data Saved account modal box-->
+                <div class="modal" id="save_modal">
+                    <div class="modal_inner">
+                        <h2>Changes Saved</h2>
+                        <div class="modal_buttons">
+                            <button class="close_button" id="save_close_button">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    //adds the saved data notification for the user
+                    const save_open_button = document.getElementById('save');
+                    const save_close_button = document.getElementById('save_close_button');
+                    const save_modal = document.getElementById('save_modal');
+
+                    save_open_button.addEventListener('click', () => {
+                        save_modal.classList.add("open");
+                    });
+
+                    save_close_button.addEventListener('click', () => {
+                        save_modal.classList.remove("open");
+                    });
+                </script>
+
+
+
+                <!--delete account button-->
+                <button type="submit" id="first_delete">Delete Account</button>
+
+                <!--delete account modal box-->
+                <div class="modal" id="delete_modal">
+                    <div class="modal_inner">
+                        <h2>Delete Account?</h2>
+                        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                        <div class="modal_buttons">
+                            <button id="closeModal">No, Cancel</button>
+                            <button id="delete" name="data" type="button" onclick="deleteUserData()">Yes, Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    //adds the delete options for the user
+                    const delete_open_button = document.getElementById('first_delete');
+                    const delete_close_button = document.getElementById('closeModal');
+                    const delete_modal = document.getElementById('delete_modal');
+
+                    delete_open_button.addEventListener('click', () => {
+                        delete_modal.classList.add("open");
+                    });
+
+                    delete_close_button.addEventListener('click', () => {
+                        delete_modal.classList.remove("open");
+                    });
+
+                </script>
+
+                <div class="modal" id="delete_modal_confirmation">
+                    <div class="modal_inner">
+                        <h2>Your Account Has Been Deleted</h2>
+                        <p>You will be redirected</p>
+                    </div>
+                </div>
+
+
+                <script>
+                    sessionToken = localStorage.getItem("sessionToken");
+
+                    async function getUserData() {
+                        const req = await fetch("http://localhost:8000/users/", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                "session_token": sessionToken,
+                            })
+
+                        });
+                        const data = await req.json()
+
+                        //displays data from console on the my account page
+                        document.getElementById("email").value = data["email"]
+                        document.getElementById("firstName").value = data["firstname"]
+                        document.getElementById("lastName").value = data["lastname"]
+                        document.getElementById("username").value = data["username"]
+                        document.getElementById("password").value = ""
+
+                    }
+
+                    if (sessionToken && sessionToken != "") {
+                        getUserData()
+                    }
+
+
+                </script>
+
+                <script>
+                    async function editUserData() {
+
+                        sessionToken = localStorage.getItem("sessionToken");
+
+                        let email = document.getElementById("email");
+                        let firstName = document.getElementById("firstName");
+                        let lastName = document.getElementById("lastName");
+                        let userName = document.getElementById("username");
+                        let password = document.getElementById("password");
+
+                        console.log(firstName.value);
+                        console.log(lastName.value);
+                        console.log(email.value);
+                        console.log(userName.value);
+                        console.log(password.value);
+
+                        const req = await fetch("http://localhost:8000/users/edit", {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                "session_token": sessionToken,
+                                "email": email.value,
+                                "firstname": firstName.value,
+                                "lastname": lastName.value,
+                                "username": userName.value,
+                                "password": password.value
+                            })
+                        });
+                        const data = await req.json()
+                        console.log(data)
+                    }
+
+                </script>
+
+
+                <script>
+                    sessionToken = localStorage.getItem("sessionToken");
+                    async function deleteUserData() {
+                        const req = await fetch("http://localhost:8000/users/delete", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                "session_token": sessionToken,
+                            })
+
+                        });
+
+                        const data = await req.json()
+                        localStorage.setItem("sessionToken", "")
+                        setTimeout(() => window.location.assign("main.html"), 4000)
+
+                        //adds the delete options for the user
+                        const delete_close_button = document.getElementById('closeModal');
+                        delete_modal_confirmation.classList.add("open");
+
+                        var modal = document.createElement("modal");
+                        modal.innerHTML = `
+                            <div id="myModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <p>Some text in the Modal..</p>
+                                </div>
+                            </div>`;
+                        document.body.appendChild(modal, document.body.firstChild);
+
+                    }
+                </script>
+
+            </div>
+        </div>
+        </form>
+    </main>
+
+
+</body>
+
+<script src="checkIfLoggedIn.js"></script>
+
+</html>

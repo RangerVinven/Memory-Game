@@ -1,0 +1,435 @@
+body{
+    background-color: #5e4085;
+    margin: 0px;
+}
+
+ /* Start of Navigation CSS*/
+nav{
+    text-align: center;
+    padding-top: 2px;
+    border-bottom: 2px solid;
+    background-color: #512d8b;
+}
+
+nav ul li{
+    display: inline;
+    margin: 5px;
+    background-color: #512d8b;
+    font-size: 32px;
+    padding-left: 6%;
+    padding-right: 6%;
+    color: #cfcfcf;
+    font-family: Arial;
+
+}
+
+a:link {
+    color: #cfcfcf;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #cfcfcf;
+}
+
+a:hover {
+    color: #808080;
+}
+ /* End of Navigation CSS*/
+
+
+
+ /* Start of Form and My Account CSS*/
+
+.form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form input{
+border-radius: 10px;
+border-color: black;
+font-size: 24px;
+}
+
+.form button{
+    background-color: #7f4097;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    border-color: #5c2f6e;
+    border-style: solid;
+}
+
+.form Button:hover {
+    background-color: #5c2f6e;
+}
+.account_details{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+
+
+    input{
+        font-size: 24;
+    }
+
+    button{
+        background-color: #7f4097;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        padding: 10px 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        font-size: 24px;
+        border-color: #5c2f6e;
+        border-style: solid;
+    }
+
+    Button:hover {
+        background-color: #5c2f6e;
+    }
+}
+ /* End of Form and My Account CSS*/
+
+
+
+ /* Start of Game CSS*/
+.playBoard{
+    background-color: #421e57;
+    border: 2px solid black;
+    min-height: 600px;
+    width: 85%;
+    margin: 10px auto;
+    padding-bottom: 10px;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+
+#Game-Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+}
+
+#Difficulties {
+    position: absolute;
+    
+    margin-top: 5px;
+    margin-left: 5px;
+    
+    top: 0;
+    left: 0;
+}
+
+#Difficulties > select {
+    width: fit-content;
+    height: fit-content;
+
+    font-size: 20px;
+}
+
+#Play-Area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+#Timer {
+    margin: 0px 0px 20px 0px;
+    color: white;
+    
+    font-size: 25px;
+    font-weight: normal;
+
+    font-family: Arial;
+}
+
+#Cards {
+    visibility: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 20px;    
+}
+
+.Playing-Card {
+    height: auto;
+    width: 100px;
+}
+
+#Score, #Level {
+    color: white;
+    margin-right: 10px;
+    
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: normal;
+
+}
+
+#Score {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#Level {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#End-Of-Game-Popup {
+    visibility: hidden;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #512d8b;
+    height: 400px;
+    width: 700px;
+
+    text-align: center;
+}
+
+#End-Of-Game-Popup > h1, h2, h3 {
+    margin: 15px 0px 0px 0px;
+    color: white;
+    
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#End-Of-Game-Popup h1 {
+    font-size: 40px;
+}
+
+#Points-Div {
+    height: 50%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.New-Game-Btn {
+    width: 50px;
+    font-size: 17px;
+
+    margin-top: 10px;
+}
+
+#Yes-Btn {
+    margin-left: 15px;
+}
+
+#Start-Game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    button {
+        background-color: #7f4097;
+        border: none;
+        border-radius: 5px;
+
+        cursor: pointer;
+
+        color: white;
+        padding: 10px 20px;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        font-size: 35px;
+    }
+}
+
+
+#StartButton:hover {
+    background-color: #5c2f6e;
+}
+
+.Sign-Up-Link:link {
+    color: #7a93e4;
+}
+
+.Sign-Up-Link:hover {
+    color: #98b0ff;
+}
+ /* End of Game CSS*/
+
+
+/*Start of Modal CSS*/ 
+.modal{
+    background-color:#7f4097;
+    flex-direction: row;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color:  #5c2f6e; 
+    border-width: 2px;
+  }
+  
+  .modal.open{
+    opacity: 1;
+    z-index: 999;
+    border-radius: 5px;
+  }
+  
+  .modal_inner h2{
+    margin: 0;
+  }
+  
+  .modal_inner{
+    line-height: 24px;
+    margin: 10px;
+  }
+  
+  .modal_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .closebutton {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-right: 10px;
+  }
+
+.modal button{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 6px;
+    background-color: #7f4097;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    border-color: #5c2f6e;
+    border-style: solid;
+
+}
+
+.modal .close_button{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.modal Button:hover {
+    background-color: #5c2f6e;
+}
+
+  /*End of Modal CSS*/ 
+
+
+
+
+  /*Start of Leaderboard CSS*/ 
+
+.leaderboard{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td {
+    border:1px solid #cfcfcf;
+    color: #cfcfcf;
+    border-collapse: collapse;
+
+  }
+
+.table_center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.leader_header{
+    color: #cfcfcf;
+    text-align: center;
+}
+h1{
+    color: #cfcfcf;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.table_center{
+    color: #cfcfcf;
+    font-family: Arial, Helvetica, sans-serif;    
+}
+  /*End of Leaderboard CSS*/ 
+
+
+
+
+.special_thanks{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.special_thanks a {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    border-bottom: 1px solid #cfcfcf;
+}
+p{
+    color: #cfcfcf;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}

@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li> <a href="index.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <script>
+            async function createUser() {
+                const username = document.getElementById("username").value;
+                const emailAddress = document.getElementById("email").value;
+                const firstName = document.getElementById("firstname").value;
+                const lastName = document.getElementById("lastname").value;
+                const password = document.getElementById("password").value;
+
+                const req = await fetch("http://localhost:8000/users/create", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "username": username,
+                        "email": emailAddress,
+                        "firstname": firstName,
+                        "lastname": lastName,
+                        "password": password
+
+                    })
+                })
+
+                const data = await req.json();
+                let sessionToken = "";
+                
+                if(data[0] === "session_token") {
+                    sessionToken = data[1]
+                } else {
+                    sessionToken = data[0]
+                }
+                
+                localStorage.setItem("sessionToken", sessionToken);
+
+                const pathParameters = window.location.search;
+
+
+                 // If the user is coming from playing the game because they want to save the results, this runs
+                 if(pathParameters && pathParameters.includes("saveGame=true")) {
+
+                    const game = JSON.parse(localStorage.getItem("game"));
+                    fetch("http://localhost:8000/scores/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "score": game["score"],
+                            "difficulty": game["difficulty"],
+                            "sessionToken": sessionToken
+                        })
+                    });
+
+                    window.location.assign("http://127.0.0.1:5500/main.html")
+
+                    }
+            window.location.assign("account.html")
+        
+            }
+        </script>
+        <form action="">
+            <div class="form">
+                <input id="username" type="text" placeholder="Username" />
+                <input id="email" type="text" placeholder="Email Address" />
+                <input id="firstname" type="text" placeholder="First Name" />
+                <input id="lastname" type="text" placeholder="Last Name" />
+                <input id="password" type="password" placeholder="Password" />
+                <button type="button" onclick="createUser()">Sign-Up</button>
+            </div>
+        </form>
+    </main>
+
+
+</body>
+
+<script src="checkIfLoggedIn.js"></script>
+</html>

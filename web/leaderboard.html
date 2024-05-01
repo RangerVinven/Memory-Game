@@ -1,0 +1,149 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li> <a href="index.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
+
+
+
+    <main>
+        <section class="playboard">
+
+        <div id="Difficulties">
+            <select onchange="getScores()" name="difficulties" id="Difficulties-Select">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>     
+        </div>
+
+        <div class ="leaderboard">
+        <h1 class ="leader_header">Leaderboard</h1>
+        <table id="table_element" class = "table_center">
+            <tr id="table_headers">
+                <th>
+                    Username
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+        </div>
+        </table>
+    </section>
+
+
+
+    </main>
+<script>
+
+    function userWantsPersonalScores() {
+        // Gets path parameters
+        const pathParameters = new URLSearchParams(window.location.search);
+        
+        return pathParameters.has("personal") 
+    }
+
+    async function getScores() {
+        clearScores() // Clears the scores
+
+        const difficulty = getDifficulty();
+        let requestParameters = { "method": "POST" }
+            
+        // Checks if the user wants their personal scores 
+        if (userWantsPersonalScores()) {
+            const sessionToken = getSessionToken();
+            
+            requestParameters = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "sessionToken": sessionToken
+            })
+        }
+        }
+        // Gets the scores
+        const req = await fetch("http://127.0.0.1:8000/scores/highscores?difficulty=" + difficulty, requestParameters);
+        const scores = await req.json()
+        
+        console.log(scores)
+        
+        // Gets the table element
+        const tableElement = getTableElement() 
+        
+        // Loops through the scores and displays them
+        scores.forEach(score => {
+            displayScore(score, tableElement)
+        })
+    }
+
+    function getSessionToken() {
+        const sessionToken = localStorage.getItem("sessionToken");
+
+        if (sessionToken === null || sessionToken === "") {
+            return null
+        } else {
+            return sessionToken
+        }
+    }
+
+    function getTableElement() {
+        return document.getElementById("table_element");
+    }
+    
+    function clearScores() {
+        const rows = Array.from(document.getElementsByTagName("tr")).filter(row => row.id !== "table_headers");
+        rows.forEach(row => row.remove())
+    }
+
+    function displayScore(score, tableElement) {
+        // Creates the new row
+        const newRow = document.createElement("tr");
+
+        let newTableData = document.createElement("td") // Creates the username column
+        newTableData.textContent = score["username"]
+       
+        // Adds the column to the row
+        newRow.appendChild(newTableData)
+    
+        newTableData = document.createElement("td") // Creates the score column
+        newTableData.textContent = score["score"]
+        
+        // Adds the column to the row
+        newRow.appendChild(newTableData)
+
+        // Adds the row to the table
+        tableElement.appendChild(newRow)
+    }
+
+    function getDifficulty() {
+        return document.getElementById("Difficulties-Select").value
+    }
+
+
+    getScores();
+</script>
+
+</body>
+
+<script src="checkIfLoggedIn.js"></script>
+
+</html>

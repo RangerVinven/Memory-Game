@@ -1,0 +1,98 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li> <a href="index.html">Play</a> </li>
+            <li> <a href="leaderboard.html">Leaderboard</a></li>
+            <li> <img src="playing-cards.png" width=50px height=50px></li>
+            <li> <a id="sign_up" href="sign_up.html">Sign Up</a></li>
+            <li> <a id="login" href="log_in.html">Log In</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <script>
+            // Changes the sign-up button to have the saveGame=true parameter
+            if(window.location.search && window.location.search.includes("saveGame=true")) {
+                document.getElementById("sign_up").href = "sign_up.html?saveGame=true"
+                document.getElementById("Sign-Up-Link").href = "sign_up.html?saveGame=true"
+            }                
+
+            function changeNavBar(){
+            const sign_up = document.getElementById("sign_up");
+            sign_up.innerText="My Account"
+            sign_up.href="account.html"
+
+            const login = document.getElementById("login");
+            login.innerText="Log Out"
+            login.href="sign_out.html"
+        }
+
+            async function loginUser() {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+                
+                const res = await fetch("http://localhost:8000/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "email": email,
+                        "password": password
+                    })
+                })
+                const data = await res.json()
+                const sessionToken = data.session_token
+                localStorage.setItem("sessionToken",sessionToken)
+                changeNavBar()
+
+                const pathParameters = window.location.search;
+                window.location.assign("account.html")
+
+                // If the user is coming from playing the game because they want to save the results, this runs
+                if(pathParameters && pathParameters.includes("saveGame=true")) {
+
+                    const game = JSON.parse(localStorage.getItem("game"));
+                    fetch("http://localhost:8000/scores/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "score": game["score"],
+                            "difficulty": game["difficulty"],
+                            "sessionToken": sessionToken
+                        })
+                    });
+
+                }
+
+            }
+        </script>
+        <form action="">
+            <div class="form">
+                <input id="email" type="email" placeholder="Email Address" />
+                <input id="password" type="password" placeholder="Password" />
+                <button type="button" onclick="loginUser()">Log In</button>
+
+                <h3>Don't have an account? <a id="Sign-Up-Link" href="sign_up.html?saveGame=true">Sign-Up!</a></h3>
+            </div>
+        </form>
+    </main>
+
+
+</body>
+
+
+<script src="checkIfLoggedIn.js"></script>
+</html>
