@@ -1,0 +1,31 @@
+services:
+  api:
+    build: api/
+    ports:
+      - "8000:8000"
+    networks:
+      memory-game:
+        ipv4_address: 192.168.1.3
+
+  database:
+    build: database/
+    ports:
+      - "3306:3306"
+    networks:
+      memory-game:
+        ipv4_address: 192.168.1.2
+
+  web:
+    build: web/
+    ports:
+      - "80:80"
+    networks:
+      memory-game:
+        ipv4_address: 192.168.1.4
+
+networks:
+  memory-game:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
