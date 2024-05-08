@@ -136,7 +136,7 @@
                     }
 
                     async function getUserData() {
-                        const req = await fetch("http://localhost:8000/users/", {
+                        const req = await fetch("http://139.162.207.32:8000/users/", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -181,7 +181,7 @@
                         console.log(userName.value);
                         console.log(password.value);
 
-                        const req = await fetch("http://localhost:8000/users/edit", {
+                        const req = await fetch("http://139.162.207.32:8000/users/edit", {
                             method: "PATCH",
                             headers: {
                                 "Content-Type": "application/json"
@@ -205,7 +205,7 @@
                 <script>
                     sessionToken = localStorage.getItem("sessionToken");
                     async function deleteUserData() {
-                        const req = await fetch("http://localhost:8000/users/delete", {
+                        const req = await fetch("http://139.162.207.32:8000/users/delete", {
                             method: "DELETE",
                             headers: {
                                 "Content-Type": "application/json"
