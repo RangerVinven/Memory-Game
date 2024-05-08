@@ -131,6 +131,10 @@
                 <script>
                     sessionToken = localStorage.getItem("sessionToken");
 
+                    if (sessionToken === null || sessionToken === "") {
+                        window.location.assign("log_in.html")
+                    }
+
                     async function getUserData() {
                         const req = await fetch("http://localhost:8000/users/", {
                             method: "POST",
@@ -214,7 +218,7 @@
 
                         const data = await req.json()
                         localStorage.setItem("sessionToken", "")
-                        setTimeout(() => window.location.assign("main.html"), 4000)
+                        setTimeout(() => window.location.assign("index.html"), 4000)
 
                         //adds the delete options for the user
                         const delete_close_button = document.getElementById('closeModal');
