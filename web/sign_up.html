@@ -62,7 +62,7 @@
                  if(pathParameters && pathParameters.includes("saveGame=true")) {
 
                     const game = JSON.parse(localStorage.getItem("game"));
-                    fetch("http://localhost:8000/scores/", {
+                    await fetch("http://localhost:8000/scores/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -74,7 +74,7 @@
                         })
                     });
 
-                    window.location.assign("http://127.0.0.1:5500/main.html")
+                    window.location.assign("index.html")
 
                     }
             window.location.assign("account.html")
