@@ -9,7 +9,11 @@ from routes.users import app as users_router
 from utils.database_connector import db, cursor
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "PUT", "PATCH", "POST", "DELETE"])
+
+@app.get("/")
+def hello():
+    return "It works!"
 
 app.include_router(scores_router, prefix="/scores")
 app.include_router(users_router, prefix="/users")
