@@ -286,7 +286,7 @@ function changeNewGameToSignIn() {
 
     // Changes the onclick for the yes button
     document.getElementById("Yes-Btn").onclick = () => redirectToLoginPageToSave()
-    document.getElementById("No-Btn").onclick = () => window.location.assign("http://localhost:5500/main.html")
+    document.getElementById("No-Btn").onclick = () => window.location.assign("/")
 }
 
 function endGame() {
@@ -306,7 +306,7 @@ function endGame() {
 }
 
 function redirectToLeaderboard() {
-    window.location.assign("http://127.0.0.1:5500/Web/leaderboard.html");
+    window.location.assign("leaderboard.html");
 }
 
 function reloadPage() {
@@ -314,7 +314,7 @@ function reloadPage() {
 }
 
 function redirectToLoginPageToSave() {
-    window.location.assign("http://127.0.0.1:5500/Web/log_in.html?saveGame=true");
+    window.location.assign("log_in.html?saveGame=true");
 }
 
 function getDifficulty() {
