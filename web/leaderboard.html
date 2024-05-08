@@ -81,7 +81,7 @@
         }
         }
         // Gets the scores
-        const req = await fetch("http://127.0.0.1:8000/scores/highscores?difficulty=" + difficulty, requestParameters);
+        const req = await fetch("http://139.162.207.32:8000/scores/highscores?difficulty=" + difficulty, requestParameters);
         const scores = await req.json()
         
         console.log(scores)
