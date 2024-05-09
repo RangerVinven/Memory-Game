@@ -255,7 +255,7 @@ async function saveGame() {
     // If the user is logged in
     if (sessionToken && sessionToken != "") {
         console.log("Saving the score");
-        fetch("http://139.162.207.32:8000/scores/", {
+        fetch("http://127.0.0.1:8000/scores/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

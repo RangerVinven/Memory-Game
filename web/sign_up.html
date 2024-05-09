@@ -29,7 +29,7 @@
                 const lastName = document.getElementById("lastname").value;
                 const password = document.getElementById("password").value;
 
-                const req = await fetch("http://139.162.207.32:8000/users/create", {
+                const req = await fetch("http://127.0.0.1:8000/users/create", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -62,7 +62,7 @@
                  if(pathParameters && pathParameters.includes("saveGame=true")) {
 
                     const game = JSON.parse(localStorage.getItem("game"));
-                    await fetch("http://139.162.207.32:8000/scores/", {
+                    await fetch("http://127.0.0.1:8000/scores/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
